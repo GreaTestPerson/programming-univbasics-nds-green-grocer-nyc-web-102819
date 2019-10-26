@@ -69,21 +69,7 @@ def apply_coupons(cart, coupons)
 
     # element => element number in cart2
 
-    cart2.each { |element|
-               if element[:item] == cart1_item && element[:count] >= cart1_num
 
-                 cart2.push({item: cart1_item + " W/COUPON",
-                            price: cart2_newPrice,
-                            clearance: element[:clearance],
-                            count: cart1_num
-                            })
-                 element[:count] -= cart1_num
-
-               end
-              }
-    i += 1
-  end
-  cart2
 end
 
 def apply_clearance(cart)
@@ -91,27 +77,14 @@ def apply_clearance(cart)
   #
   # REMEMBER: This method **should** update cart
   
-  cart1 = cart
-  cart2 = []
+  cart.length.times {|i|
+    if cart[i][:clearance]
+      cart[i][:price] = (cart[i][:price]*0.8).round(2)
+    end
+  }
+  cart
 
-    # element => element number in cart1
 
-    cart1.each { |element|
-               if element[:clearance] #== true
-
-                cart2.push({item:     element[:item],
-                            price:    (element[:price]*0.8).round(2),
-                            clearance: element[:clearance],
-                            count:     element[:count]
-                          })
-              else
-                cart2.push(element)
-
-              end
-              }
-  cart2
-  
-  
 end
 
 def checkout(cart, coupons)
