@@ -90,6 +90,28 @@ def apply_clearance(cart)
   # Consult README for inputs and outputs
   #
   # REMEMBER: This method **should** update cart
+  
+  cart1 = cart
+  cart2 = []
+
+    # element => element number in cart1
+
+    cart1.each { |element|
+               if element[:clearance] #== true
+
+                cart2.push({item:     element[:item],
+                            price:    (element[:price]*0.8).round(2),
+                            clearance: element[:clearance],
+                            count:     element[:count]
+                          })
+              else
+                cart2.push(element)
+
+              end
+              }
+  cart2
+  
+  
 end
 
 def checkout(cart, coupons)
