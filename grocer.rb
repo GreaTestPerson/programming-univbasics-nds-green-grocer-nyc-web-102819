@@ -125,21 +125,5 @@ def checkout(cart, coupons)
   # BEFORE it begins the work of calculating the total (or else you might have
   # some irritated customers
   
-   cart_1 = consolidate_cart(cart)
-
-  cart_2 = apply_coupons(cart_1, coupons)
-
-  cart_3 = apply_clearance(cart_2)
-
-  grand_total = 0
-  cart_3.each { |element| grand_total += element[:price] * element[:count]}
-
-  final_total = 0
-  if grand_total >100
-    final_total = grand_total*0.9
-  else
-    final_total = grand_total
-  end
-
-  final_total.round(2)
+  
 end
