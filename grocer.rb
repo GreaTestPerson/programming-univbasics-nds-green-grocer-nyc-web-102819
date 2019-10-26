@@ -24,31 +24,26 @@ def consolidate_cart(cart)
   # Consult README for inputs and outputs
   #
   # REMEMBER: This returns a new Array that represents the cart. Don't merely
-  # change `cart` (i.e. mutate) it. It's easier to return a new thing.
-    cart1 = cart
-    cart2 = []
-    i = 0 # element numnber in cart1
-    while i < cart1.count do
+  # change `cart` (i.e. mutate) it. It's easier to return a new thing
+  
+    item_names = []
+  item_count_hash = {}
+  cart.each{ |item|
+    item_names.append(item[:item])
+  }
+  item_names_uniq = item_names.uniq
+  item_names_uniq.length.times { |i|
+    item_count_hash[item_names_uniq[i]] = item_names.count(item_names_uniq[i])
+  }
 
-    item_name = cart1[i][:item]
-    item_price = cart1[i][:price]
-    item_clearance = cart1[i][:clearance]
-    new_item = {item:item_name, price: item_price, clearance: item_clearance, count: 1}
+  consolidated_cart = []
+  item_names_uniq.length.times { |i|
+    hash = find_item_by_name_in_collection(item_names_uniq[i], cart)
+    hash[:count] = item_count_hash[item_names_uniq[i]]
+    consolidated_cart.append(hash)
+  }
 
-
-    if cart2.any? {|element| element[:item] == item_name}
-
-      cart2.each { |element|
-                    if element[:item] == item_name
-                         element[:count] += 1
-                     end
-                 }
-    else
-      cart2.push(new_item)
-    end
-    i += 1
-  end
-  cart2
+  consolidated_cart
 
 end
 
