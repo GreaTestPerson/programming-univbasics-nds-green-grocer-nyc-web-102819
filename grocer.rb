@@ -56,6 +56,34 @@ def apply_coupons(cart, coupons)
   # Consult README for inputs and outputs
   #
   # REMEMBER: This method **should** update cart
+  
+   cart2 = cart
+  i = 0 # element numnber in cart1
+  while i < cart1.count do
+
+    cart1_item = cart1[i][:item]
+    cart1_cost = cart1[i][:cost]
+    cart1_num = cart1[i][:num]
+
+    cart2_newPrice = cart1_cost/cart1_num
+
+    # element => element number in cart2
+
+    cart2.each { |element|
+               if element[:item] == cart1_item && element[:count] >= cart1_num
+
+                 cart2.push({item: cart1_item + " W/COUPON",
+                            price: cart2_newPrice,
+                            clearance: element[:clearance],
+                            count: cart1_num
+                            })
+                 element[:count] -= cart1_num
+
+               end
+              }
+    i += 1
+  end
+  cart2
 end
 
 def apply_clearance(cart)
