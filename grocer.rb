@@ -56,8 +56,8 @@ def apply_coupons(cart, coupons)
   # Consult README for inputs and outputs
   #
   # REMEMBER: This method **should** update cart
-  
-   cart2 = cart
+  cart1=coupons
+  cart2 = cart
   i = 0 # element numnber in cart1
   while i < cart1.count do
 
