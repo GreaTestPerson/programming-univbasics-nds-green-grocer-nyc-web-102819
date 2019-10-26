@@ -125,5 +125,14 @@ def checkout(cart, coupons)
   # BEFORE it begins the work of calculating the total (or else you might have
   # some irritated customers
   
+   cart = apply_clearance(apply_coupons(consolidate_cart(cart), coupons))
+  total = 0
+  cart.length.times {|i|
+    total += cart[i][:price]*cart[i][:count]
+  }
+  if total > 100
+    total *= 0.9
+  end
+  total
   
 end
