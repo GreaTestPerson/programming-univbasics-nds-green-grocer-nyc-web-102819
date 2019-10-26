@@ -69,7 +69,22 @@ def apply_coupons(cart, coupons)
 
     # element => element number in cart2
 
-
+  coupon_applied_cart = cart
+  cart.length.times { |i|
+    coupons.length.times { |j|
+      if cart[i][:item] == coupons[j][:item] && coupons[j][:num] <= cart[i][:count]
+        coupon_applied_cart[i][:count] -= coupons[j][:num]
+        coupon_applied_cart.append({
+          :item => "#{cart[i][:item]} W/COUPON",
+          :price => (coupons[j][:cost])/(coupons[j][:num]),
+          :clearance => cart[i][:clearance],
+          :count => coupons[j][:num]
+        })
+      end
+    }
+  }
+  coupon_applied_cart
+  
 end
 
 def apply_clearance(cart)
